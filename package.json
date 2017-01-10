@@ -1,0 +1,5 @@
+{
+  "name"    : "multiyargs",
+  "version" : "0.1.0-dev",
+  "main"    : "./index.js"
+}

@@ -24,34 +24,11 @@
 // Strict mode.
 'use strict';
 
-// Package modules.
-const debug = require('debug')('multiyargs:log');
+// Configure.
+const yargs = {
+  // Define parse as identity function.
+  parse: (argv) => argv
+};
 
 // Exports.
-module.exports = (yargs, argv) => {
-  // Default to `process.argv`.
-  argv = argv || process.argv.slice(2);
-
-  // Debug.
-  debug('argv: %o', argv);
-
-  // Separate by `--`.
-  let result = [ ];
-  while(undefined !== argv[0]) {
-    // Determine next slice of arguments.
-    const index = argv.indexOf('--') + 1; // Set to end of slice.
-    const slice = index ? argv.splice(0, index) : argv.splice(0);
-
-    // Debug.
-    debug('parsing slice: %o', slice);
-
-    // Parse slice and append to result.
-    result.push(yargs.parse(slice));
-  }
-
-  // Debug.
-  debug('done');
-
-  // Return the result.
-  return result;
-};
+module.exports = yargs;

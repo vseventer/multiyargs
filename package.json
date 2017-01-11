@@ -1,5 +1,23 @@
 {
-  "name"    : "multiyargs",
-  "version" : "0.1.0-dev",
-  "main"    : "./index.js"
+  "name"     : "multiyargs",
+  "version"  : "0.1.0",
+  "description": "Like yargs, but with support for multiple commands.",
+  "keywords" : [ "cli", "cmd", "yargs" ],
+  "bugs"     : "https://github.com/vseventer/multiyargs/issues",
+  "license"  : "MIT",
+  "author"   : "Mark van Seventer <mark@vseventer.com>",
+  "repository": { "type": "git", "url": "vseventer/multiyargs" },
+  "main"     : "./index.js",
+  "scripts"  : {
+    "pretest" : "jshint --reporter=node_modules/jshint-stylish index.js test/",
+    "test"    : "mocha"
+  },
+  "dependencies"    : { "debug": "2.6.x" },
+  "devDependencies" : {
+    "chai"           : "3.5.x",
+    "jshint"         : "2.9.x",
+    "jshint-stylish" : "2.2.x",
+    "mocha"          : "3.2.x"
+  },
+  "engines": { "node": ">=6.x" }
 }

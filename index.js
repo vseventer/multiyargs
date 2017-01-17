@@ -35,6 +35,11 @@ module.exports = (yargs, argv) => {
   // Debug.
   debug('argv: %o', argv);
 
+  // Ensure there is at least one slice.
+  if(!argv[0]) {
+    argv.push('--');
+  }
+
   // Separate by `--`.
   let result = [ ];
   while(undefined !== argv[0]) {

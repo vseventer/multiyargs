@@ -35,7 +35,7 @@ const multiyargs = require('../');
 describe('multiyargs', () => {
   it('given no commands.', () => {
     const args = multiyargs(yargs, [ ]);
-    expect(args).to.deep.equal([ ]);
+    expect(args).to.deep.equal([ [ '--' ] ]);
   });
 
   it('given the separator.', () => {

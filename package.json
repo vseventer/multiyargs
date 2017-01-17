@@ -1,6 +1,6 @@
 {
   "name"     : "multiyargs",
-  "version"  : "0.1.0",
+  "version"  : "0.1.1",
   "description": "Like yargs, but with support for multiple commands.",
   "keywords" : [ "cli", "cmd", "yargs" ],
   "bugs"     : "https://github.com/vseventer/multiyargs/issues",

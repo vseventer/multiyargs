@@ -28,7 +28,7 @@
 const debug = require('debug')('multiyargs:log');
 
 // Exports.
-module.exports = (yargs, argv) => {
+module.exports = (yargs, argv, forEachCallback) => {
   // Default to `process.argv`.
   argv = argv || process.argv.slice(2);
 
@@ -51,6 +51,9 @@ module.exports = (yargs, argv) => {
     debug('parsing slice: %o', slice);
 
     // Parse slice and append to result.
+    if(forEachCallback) {
+      forEachCallback(undefined !== argv[0]);
+    }
     result.push(yargs.parse(slice));
   }
 

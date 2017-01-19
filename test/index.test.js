@@ -91,4 +91,18 @@ describe('multiyargs', () => {
       [ 'qux', '--' ]
     ]);
   });
+
+  it('should execute a callback for each command.', (done) => {
+    let firstPass = true;
+    multiyargs(yargs, [ 'foo', 'bar', '--', 'qux', '--' ], (hasMore) => {
+      if(firstPass) {
+        firstPass = false; // Flip switch.
+        expect(hasMore).to.equal(true);
+      }
+      else { // Second pass.
+        expect(hasMore).to.equal(false);
+        done();
+      }
+    });
+  });
 });

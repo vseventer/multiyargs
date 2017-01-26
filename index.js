@@ -22,44 +22,50 @@
  */
 
 // Strict mode.
-'use strict';
+'use strict'
 
 // Package modules.
-const debug = require('debug')('multiyargs:log');
+const debug = require('debug')('multiyargs:log')
+const doWhilst = require('promise-do-whilst')
 
 // Exports.
-module.exports = (yargs, argv, forEachCallback) => {
-  // Default to `process.argv`.
-  argv = argv || process.argv.slice(2);
+module.exports = (cli, argv, context, parseCallback) => {
+  // Extract global options.
+  const globalOptions = cli.getOptions().global
+
+  // Cast arguments.
+  argv = argv || process.argv.slice(2)
+  context = context || { }
 
   // Debug.
-  debug('argv: %o', argv);
+  debug('argv: %o', argv)
 
-  // Ensure there is at least one slice.
-  if(!argv[0]) {
-    argv.push('--');
-  }
-
-  // Separate by `--`.
-  let result = [ ];
-  while(undefined !== argv[0]) {
-    // Determine next slice of arguments.
-    const index = argv.indexOf('--') + 1; // Set to end of slice.
-    const slice = index ? argv.splice(0, index) : argv.splice(0);
+  // Parse arguments.
+  let result = [ ] // Init.
+  const promise = doWhilst(() => {
+    // Get next slice.
+    const until = argv.indexOf('--') + 1
+    const slice = until ? argv.splice(0, until) : argv.splice(0)
 
     // Debug.
-    debug('parsing slice: %o', slice);
+    debug('parsing slice: %o', slice)
 
-    // Parse slice and append to result.
-    if(forEachCallback) {
-      forEachCallback(undefined !== argv[0]);
-    }
-    result.push(yargs.parse(slice));
-  }
+    // Parse slice.
+    return cli.parse(slice, context, (err, args, output) => {
+      // Stop on error or output.
+      if (err || output) throw err || output
 
-  // Debug.
-  debug('done');
+      // Retain global options.
+      globalOptions.forEach((opt) => {
+        const value = args[opt]
+        if (undefined !== value) context[opt] = value
+      })
+
+      // Append args to result.
+      result.push(args)
+    })
+  }, () => argv.length)
 
   // Return the result.
-  return result;
-};
+  return promise.then(() => result)
+}

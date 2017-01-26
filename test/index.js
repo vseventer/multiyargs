@@ -1,3 +1,4 @@
+/* global describe, it */
 /*!
  * The MIT License (MIT)
  *
@@ -22,87 +23,77 @@
  */
 
 // Strict mode.
-'use strict';
+'use strict'
 
 // Package modules.
-const expect = require('chai').expect;
-const yargs  = require('./mocks/yargs');
+const expect = require('chai').expect
+const yargs = require('./mocks/yargs')
 
 // Local modules.
-const multiyargs = require('../');
+const multiyargs = require('../')
 
 // Test suite.
 describe('multiyargs', () => {
   it('given no commands.', () => {
-    const args = multiyargs(yargs, [ ]);
-    expect(args).to.deep.equal([ [ '--' ] ]);
-  });
+    return multiyargs(yargs, [ ]).then((args) => {
+      expect(args).to.deep.equal([ [ ] ])
+    })
+  })
 
   it('given the separator.', () => {
-    const args = multiyargs(yargs, [ '--' ]);
-    expect(args).to.deep.equal([
-      [ '--' ]
-    ]);
-  });
+    return multiyargs(yargs, [ '--' ]).then((args) => {
+      expect(args).to.deep.equal([ [ '--' ] ])
+    })
+  })
 
   it('given a single command.', () => {
-    const args = multiyargs(yargs, [ 'foo', 'bar' ]);
-    expect(args).to.deep.equal([
-      [ 'foo', 'bar' ]
-    ]);
-  });
+    return multiyargs(yargs, [ 'foo', 'bar' ]).then((args) => {
+      expect(args).to.deep.equal([ [ 'foo', 'bar' ] ])
+    })
+  })
 
   it('given a single command, starting with the separator.', () => {
-    const args = multiyargs(yargs, [ '--', 'foo', 'bar' ]);
-    expect(args).to.deep.equal([
-      [ '--' ],
-      [ 'foo', 'bar' ]
-    ]);
-  });
+    return multiyargs(yargs, [ '--', 'foo', 'bar' ]).then((args) => {
+      expect(args).to.deep.equal([
+        [ '--' ],
+        [ 'foo', 'bar' ]
+      ])
+    })
+  })
 
   it('given a single command, ending with the separator.', () => {
-    const args = multiyargs(yargs, [ 'foo', 'bar', '--' ]);
-    expect(args).to.deep.equal([
-      [ 'foo', 'bar', '--' ]
-    ]);
-  });
+    return multiyargs(yargs, [ 'foo', 'bar', '--' ]).then((args) => {
+      expect(args).to.deep.equal([
+        [ 'foo', 'bar', '--' ]
+      ])
+    })
+  })
 
   it('given two commands.', () => {
-    const args = multiyargs(yargs, [ 'foo', 'bar', '--', 'qux' ]);
-    expect(args).to.deep.equal([
-      [ 'foo', 'bar', '--' ],
-      [ 'qux' ]
-    ]);
-  });
+    return multiyargs(yargs, [ 'foo', 'bar', '--', 'qux' ]).then((args) => {
+      expect(args).to.deep.equal([
+        [ 'foo', 'bar', '--' ],
+        [ 'qux' ]
+      ])
+    })
+  })
 
   it('given two commands, starting with the separator.', () => {
-    const args = multiyargs(yargs, [ '--', 'foo', 'bar', '--', 'qux' ]);
-    expect(args).to.deep.equal([
-      [ '--' ],
-      [ 'foo', 'bar', '--' ],
-      [ 'qux' ]
-    ]);
-  });
+    return multiyargs(yargs, [ '--', 'foo', 'bar', '--', 'qux' ]).then((args) => {
+      expect(args).to.deep.equal([
+        [ '--' ],
+        [ 'foo', 'bar', '--' ],
+        [ 'qux' ]
+      ])
+    })
+  })
 
   it('given two commands, ending with two separators.', () => {
-    const args = multiyargs(yargs, [ 'foo', 'bar', '--', 'qux', '--' ]);
-    expect(args).to.deep.equal([
-      [ 'foo', 'bar', '--' ],
-      [ 'qux', '--' ]
-    ]);
-  });
-
-  it('should execute a callback for each command.', (done) => {
-    let firstPass = true;
-    multiyargs(yargs, [ 'foo', 'bar', '--', 'qux', '--' ], (hasMore) => {
-      if(firstPass) {
-        firstPass = false; // Flip switch.
-        expect(hasMore).to.equal(true);
-      }
-      else { // Second pass.
-        expect(hasMore).to.equal(false);
-        done();
-      }
-    });
-  });
-});
+    return multiyargs(yargs, [ 'foo', 'bar', '--', 'qux', '--' ]).then((args) => {
+      expect(args).to.deep.equal([
+        [ 'foo', 'bar', '--' ],
+        [ 'qux', '--' ]
+      ])
+    })
+  })
+})

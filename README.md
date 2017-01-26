@@ -16,7 +16,8 @@ const cli = require('yargs')
   .command('command3', (builder) => { builder.option('foo', { type: 'boolean' }) })
 ;
 
-const args = require('multiyargs')(cli, process.argv.slice(2));
+const promise = require('multiyargs')(cli, process.argv.slice(2));
+promise.then((args) => { ... })
 /**
 [ { _: [ 'command1' ], foo: true, '$0': 'cli' },
   { _: [ 'command2' ], bar: true, '$0': 'cli' },

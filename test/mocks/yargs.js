@@ -22,13 +22,13 @@
  */
 
 // Strict mode.
-'use strict';
+'use strict'
 
 // Configure.
 const yargs = {
-  // Define parse as identity function.
-  parse: (argv) => argv
-};
+  getOptions: () => ({ global: [ ] }),
+  parse: (argv, context, parseCallback) => parseCallback(null, argv)
+}
 
 // Exports.
-module.exports = yargs;
+module.exports = yargs

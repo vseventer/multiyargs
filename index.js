@@ -29,7 +29,7 @@ const debug = require('debug')('multiyargs:log')
 const doWhilst = require('promise-do-whilst')
 
 // Exports.
-module.exports = (cli, argv, context, parseCallback) => {
+module.exports = (cli, argv, context) => {
   // Extract global options.
   const globalOptions = cli.getOptions().global
 

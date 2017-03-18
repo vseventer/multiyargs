@@ -4,6 +4,8 @@
 ## Installation
 `$ npm install multiyargs`
 
+If you are using yargs 6, use `$ npm install multiyargs@0.2.0`.
+
 ## Usage
 Create your CLI as usual, but pass it through `multiyargs` instead of calling `yargs.argv`.
 

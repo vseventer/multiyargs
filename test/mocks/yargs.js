@@ -26,7 +26,7 @@
 
 // Configure.
 const yargs = {
-  getOptions: () => ({ global: [ ] }),
+  getOptions: () => ({ key: { }, local: [ ] }),
   parse: (argv, context, parseCallback) => parseCallback(null, argv)
 }
 

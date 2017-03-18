@@ -31,7 +31,10 @@ const doWhilst = require('promise-do-whilst')
 // Exports.
 module.exports = (cli, argv, context) => {
   // Extract global options.
-  const globalOptions = cli.getOptions().global
+  const options = cli.getOptions()
+  const globalOptions = Object.keys(options.key).filter((option) => {
+    return options.local.indexOf(option) === -1
+  })
 
   // Cast arguments.
   argv = argv || process.argv.slice(2)

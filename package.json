@@ -1,6 +1,6 @@
 {
   "name"     : "multiyargs",
-  "version"  : "0.2.0",
+  "version"  : "1.0.0",
   "description": "Like yargs, but with support for multiple commands.",
   "keywords" : [ "cli", "cmd", "yargs" ],
   "bugs"     : "https://github.com/vseventer/multiyargs/issues",
@@ -19,7 +19,10 @@
   "devDependencies" : {
     "chai"     : "3.5.x",
     "mocha"    : "3.2.x",
-    "standard" : "8.6.x"
+    "standard" : "9.0.x"
   },
-  "engines": { "node": ">=6.x" }
+  "engines": {
+    "node"  : ">=6.x",
+    "yargs" : ">=7.0.x"
+  }
 }
